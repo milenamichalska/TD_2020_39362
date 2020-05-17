@@ -19,14 +19,15 @@ def zad1():
     plt.show()
 
 def zad2():
+    #kwantyzacja q16
     q=16
     t = np.linspace(0,1,200)
-
     plt.step(t, np.round((s(A,f,t,fi)+A)*(q**2/2)))
     plt.plot(t, np.round((s(A,f,t,fi)+A)*(q**2/2)))
     plt.show()
     
 def zad3():
+    #kwantyzacja q8
     q=8
     t = np.linspace(0,1,100)
     plt.step(t, np.round((s(A,f,t,fi)+A)*(q**2/2)))
