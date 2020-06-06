@@ -13,13 +13,13 @@ fn = 8
 fm = 3
 
 def m(t):
-    return A*np.sin(2*np.pi*fm*t)
+    return A*np.sin(2 * np.pi * fm * t)
 
-def z_A(k_A, t):
-    return (k_A * m(t) + 1) * np.cos(2*np.pi*fn*t)
+def z_A(t, k_A):
+    return (k_A * m(t) + 1) * np.cos(2 * np.pi * fn * t)
 
-def z_P(k_P, t):
-    return np.cos(2*np.pi*fn*t + k_P * m(t))
+def z_P(t, k_P):
+    return np.cos(2 * np.pi * fn * t + k_P * m(t))
 
 def zad1():
     t = np.linspace(0, 1, 200)
@@ -57,3 +57,97 @@ def zad1():
 
 
 zad1()
+
+#dyskretna transformata fouriera z poprzedniego laboratorium
+def DFT(x):
+    # x(k) - próbki harmoniczne
+    xk = []
+    # N - liczba próbek
+    N = len(x)
+
+    for k in range(N):
+        sum = 0
+        for n in range(N):
+            #wn - współczynnik skrętu
+            wn = np.cos(x[n]) + n*np.sin(x[n])
+            sum += x[n] * wn**(-k*n)
+        xk.append(sum)
+    return xk
+
+# skala częstotliwości
+def scale_f(x,fs):
+    N = len(x)
+    fk = []
+    for k in range(N):
+        fk.append(k * (fs / N))
+    return fk
+
+def widmo(var):
+    var = DFT(var)
+    n = np.linspace(0,1,263)
+    i_n=np.imag(var) #liczby urojone
+    r_n=np.real(var) #liczby rzeczywiste
+    MK=[]
+    for i in range(0,len(r_n)):
+        MK.append(np.sqrt(r_n[i]**2+i_n[i]**2))
+    return MK
+
+def plotWidmoA(t, k_A):
+    trans = DFT(z_A(t, k_A))
+    mk = widmo(z_A(t, k_A))
+    mk_p = 10 * np.log10(mk)
+    fk = scale_f(trans, 200)
+    plt.bar(fk, mk_p)
+    plt.show()
+
+def plotWidmoP(t, k_P):
+    trans = DFT(z_P(t, k_P))
+    mk = widmo(z_P(t, k_P))
+    mk_p = 10 * np.log10(mk)
+    fk = scale_f(trans, 200)
+    plt.bar(fk, mk_p)
+    plt.show()
+
+def zad2():
+    t = np.linspace(0, 1, 100)
+
+    k_A = 0.7
+    plotWidmoA(t, k_A)
+
+    k_A = 7
+    plotWidmoA(t, k_A)
+
+    k_A = 64
+    plotWidmoA(t, k_A)
+
+    k_P = 1.4
+    plotWidmoP(t, k_P)
+
+    k_P = 1/4 * np.pi
+    plotWidmoP(t, k_P)
+
+    k_P = 32
+    plotWidmoP(t, k_P)
+
+zad2()
+
+def pasmo(mk_p):
+    fmin = np.min(mk_p)
+    fmax = np.max(mk_p)
+    W = fmax - fmin
+    print(W)
+
+def zad3():
+    t = np.linspace(0, 1, 100)
+
+    k_A = 0.7
+    mk = widmo(z_A(t, k_A))
+    mk_p = 10 * np.log10(mk)
+    pasmo(mk_p)
+
+    k_A = 7
+    mk = widmo(z_A(t, k_A))
+    mk_p = 10 * np.log10(mk)
+    pasmo(mk_p)
+
+zad3()
