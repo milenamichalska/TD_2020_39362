@@ -82,12 +82,11 @@ def scale_f(x,fs):
         fk.append(k * (fs / N))
     return fk
 
-def widmo(var):
-    var = DFT(var)
-    n = np.linspace(0,1,263)
-    i_n=np.imag(var) #liczby urojone
-    r_n=np.real(var) #liczby rzeczywiste
-    MK=[]
+def widmo(y):
+    y = DFT(y)
+    i_n = np.imag(y) #liczby urojone
+    r_n = np.real(y) #liczby rzeczywiste
+    MK = []
     for i in range(0,len(r_n)):
         MK.append(np.sqrt(r_n[i]**2+i_n[i]**2))
     return MK
