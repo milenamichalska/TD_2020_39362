@@ -60,17 +60,13 @@ zad1()
 
 #dyskretna transformata fouriera z poprzedniego laboratorium
 def DFT(x):
-    # x(k) - próbki harmoniczne
-    xk = []
-    # N - liczba próbek
-    N = len(x)
-
+    xk=[]
+    N=len(x)                    
+    wn=np.exp((1j*2*np.pi)/N)
     for k in range(N):
-        sum = 0
+        sum=0
         for n in range(N):
-            #wn - współczynnik skrętu
-            wn = np.cos(x[n]) + n*np.sin(x[n])
-            sum += x[n] * wn**(-k*n)
+            sum+=x[n]*wn**(-k*n)
         xk.append(sum)
     return xk
 
@@ -144,9 +140,13 @@ def zad3():
     mk_p = 10 * np.log10(mk)
     pasmo(mk_p)
 
+    #28.430241886756765
+
     k_A = 7
     mk = widmo(z_A(t, k_A))
     mk_p = 10 * np.log10(mk)
     pasmo(mk_p)
+
+    #23.83422822501708
 
 zad3()
