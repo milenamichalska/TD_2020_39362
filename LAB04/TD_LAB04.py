@@ -149,4 +149,9 @@ def zad3():
 
     #23.83422822501708
 
+    k_A = 64
+    mk = widmo(z_A(t, k_A))
+    mk_p = 10 * np.log10(mk)
+    pasmo(mk_p)
+
 zad3()
