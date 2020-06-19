@@ -77,6 +77,7 @@ def dekoderManchester(clk, manchester, samples):
     for i in range(len(clk) - 1):
         if (clk[i] == 1 and clk[i + 1] == 0): 
             signal.append(manchester[i])
+    signal.append(manchester[-1])
     return signal
 
 manchesterDekodowany = dekoderManchester(clk, manchester, 1000)
