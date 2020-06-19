@@ -154,4 +154,6 @@ def zad3():
     mk_p = 10 * np.log10(mk)
     pasmo(mk_p)
 
+    #31.98105998953324
+
 zad3()
